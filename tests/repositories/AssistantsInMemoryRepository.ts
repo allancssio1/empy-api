@@ -15,6 +15,11 @@ export class AssistantsInMemoryRepository implements AssistantRepository {
 
     return assistant
   }
+  async findByEmail(email: string): Promise<Assistant | null> {
+    const assistant = await this.assistants.find((item) => item.email === email)
+
+    return assistant ?? null
+  }
   async findMany(): Promise<Assistant[] | []> {
     return this.assistants
   }
