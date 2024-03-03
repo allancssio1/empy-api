@@ -20,7 +20,7 @@ describe('Edit Assistant', () => {
   })
 
   it('It must be possible to edit an assistant.', async () => {
-    const { assistant } = await sut.handle({
+    const { assistant } = await sut.execute({
       id: assistantCreated.id.toString(),
       name: 'Assistant-2',
       email: 'assistant2@email.com',
@@ -37,7 +37,7 @@ describe('Edit Assistant', () => {
     )
     expect(
       async () =>
-        await sut.handle({
+        await sut.execute({
           id: 'id-wrong',
           name: 'Assistant-2',
           email: 'assistant2@email.com',

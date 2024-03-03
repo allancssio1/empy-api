@@ -14,7 +14,7 @@ interface CreateAssistantUseCaseResponse {
 export class CreateAssistantUseCase {
   constructor(private assistantRepository: AssistantRepository) {}
 
-  async handle({
+  async execute({
     name,
     email,
     phone,

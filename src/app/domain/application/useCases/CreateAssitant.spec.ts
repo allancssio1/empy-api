@@ -12,7 +12,7 @@ describe('Create Assistant', () => {
   })
 
   it('It must be possible to register an assistant.', async () => {
-    const { assistant } = await sut.handle({
+    const { assistant } = await sut.execute({
       name: 'Assistant-1',
       email: 'assistant@email.com',
       phone: '9989999999',
@@ -27,7 +27,7 @@ describe('Create Assistant', () => {
     )
     expect(
       async () =>
-        await sut.handle({
+        await sut.execute({
           name: 'Assistant-1',
           email: 'assistant@email.com',
           phone: '9989999999',

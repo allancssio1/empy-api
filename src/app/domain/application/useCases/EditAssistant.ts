@@ -15,7 +15,7 @@ interface EditAssistantUseCaseResponse {
 export class EditAssistantUseCase {
   constructor(private assistantRepository: AssistantRepository) {}
 
-  async handle({
+  async execute({
     id,
     name,
     email,
