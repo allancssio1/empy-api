@@ -1,13 +1,13 @@
 import { Entity } from '@/app/core/entities/Entity'
 import { UniqueEntityId } from '@/app/core/entities/UniqueEntityId'
 
-interface AssistentProps {
+interface AssistantProps {
   name: string
   email: string
   phone: string
 }
 
-export class Assistent extends Entity<AssistentProps> {
+export class Assistant extends Entity<AssistantProps> {
   get name() {
     return this.props.name
   }
@@ -18,7 +18,7 @@ export class Assistent extends Entity<AssistentProps> {
     return this.props.phone
   }
 
-  static create(props: AssistentProps, id?: UniqueEntityId) {
-    return new Assistent(props, id)
+  static create(props: AssistantProps, id?: UniqueEntityId) {
+    return new Assistant(props, id)
   }
 }
