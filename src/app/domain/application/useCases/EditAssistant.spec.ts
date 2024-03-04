@@ -2,6 +2,7 @@ import { makeAssistant } from '#/factories/makeAssitant'
 import { AssistantsInMemoryRepository } from '#/repositories/AssistantsInMemoryRepository'
 import { Assistant } from '../../enterprise/entities/Assistant'
 import { EditAssistantUseCase } from './EditAssistant'
+import { NotFoundError } from './errors/NotFoundError'
 
 let assistantRepository: AssistantsInMemoryRepository
 let sut: EditAssistantUseCase
@@ -20,29 +21,30 @@ describe('Edit Assistant', () => {
   })
 
   it('It must be possible to edit an assistant.', async () => {
-    const { assistant } = await sut.execute({
+    const result = await sut.execute({
       id: assistantCreated.id.toString(),
       name: 'Assistant-2',
       email: 'assistant2@email.com',
       phone: '(99) 9 9999-9999',
     })
 
-    expect(assistant.email).toEqual('assistant2@email.com')
-    expect(assistant.phone).toEqual('99999999999')
+    expect(result.isRight()).toBe(true)
+    expect(result.isLeft()).toBe(false)
   })
 
   it('It should not be possible to edit an assistant where id wrong.', async () => {
     await assistantRepository.create(
       makeAssistant({ email: 'assistant@email.com' }),
     )
-    expect(
-      async () =>
-        await sut.execute({
-          id: 'id-wrong',
-          name: 'Assistant-2',
-          email: 'assistant2@email.com',
-          phone: '(99) 9 9999-9999',
-        }),
-    ).rejects.toBeInstanceOf(Error)
+    const result = await sut.execute({
+      id: 'id-wrong',
+      name: 'Assistant-2',
+      email: 'assistant2@email.com',
+      phone: '(99) 9 9999-9999',
+    })
+
+    expect(result.isLeft()).toBe(true)
+    expect(result.isRight()).toBe(false)
+    expect(result.value).toBeInstanceOf(NotFoundError)
   })
 })

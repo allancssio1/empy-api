@@ -1,5 +1,7 @@
+import { Either, left, right } from '@/app/core/either'
 import { Assistant } from '../../enterprise/entities/Assistant'
 import { AssistantRepository } from '../repositories/assistantRepository'
+import { AssistanteAlreadyExistsError } from './errors/AssistantAlreadyExistsError'
 
 interface CreateAssistantUseCaseProps {
   name: string
@@ -7,9 +9,10 @@ interface CreateAssistantUseCaseProps {
   phone: string
 }
 
-interface CreateAssistantUseCaseResponse {
-  assistant: Assistant
-}
+type CreateAssistantUseCaseResponse = Either<
+  AssistanteAlreadyExistsError,
+  { assistant: Assistant }
+>
 
 export class CreateAssistantUseCase {
   constructor(private assistantRepository: AssistantRepository) {}
@@ -22,7 +25,7 @@ export class CreateAssistantUseCase {
     const assistantAlreadyExists =
       await this.assistantRepository.findByEmail(email)
 
-    if (assistantAlreadyExists) throw new Error('Assistant Already Exists')
+    if (assistantAlreadyExists) return left(new AssistanteAlreadyExistsError())
 
     const assistant = Assistant.create({
       name,
@@ -32,6 +35,6 @@ export class CreateAssistantUseCase {
 
     await this.assistantRepository.create(assistant)
 
-    return { assistant }
+    return right({ assistant })
   }
 }

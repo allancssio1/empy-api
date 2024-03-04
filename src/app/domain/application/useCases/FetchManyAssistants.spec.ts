@@ -17,8 +17,8 @@ describe('Fetch Many Assistant', () => {
   })
 
   it('It must be possible to find many assistants.', async () => {
-    const { assistants } = await sut.execute()
+    const result = await sut.execute()
 
-    expect(assistants).toHaveLength(3)
+    expect(result.value?.assistants).toHaveLength(3)
   })
 })

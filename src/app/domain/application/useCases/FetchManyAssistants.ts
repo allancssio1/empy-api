@@ -1,9 +1,13 @@
+import { Either, right } from '@/app/core/either'
 import { Assistant } from '../../enterprise/entities/Assistant'
 import { AssistantRepository } from '../repositories/assistantRepository'
 
-interface FetchManyAssistantsUseCaseResponse {
-  assistants: Assistant[]
-}
+type FetchManyAssistantsUseCaseResponse = Either<
+  null,
+  {
+    assistants: Assistant[]
+  }
+>
 
 export class FetchManyAssistantsUseCase {
   constructor(private assistantRepository: AssistantRepository) {}
@@ -11,6 +15,6 @@ export class FetchManyAssistantsUseCase {
   async execute(): Promise<FetchManyAssistantsUseCaseResponse> {
     const assistants = await this.assistantRepository.findMany()
 
-    return { assistants }
+    return right({ assistants })
   }
 }
