@@ -25,7 +25,7 @@ model Assistants {
 model Clients {
   id          String  @unique @default(uuid())
   name        String
-  code        String
+  code        String  @unique
   netWork     String
   assistantId String?
 
