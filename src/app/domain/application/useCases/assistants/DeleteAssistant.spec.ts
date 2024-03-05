@@ -1,17 +1,17 @@
 import { makeAssistant } from '#/factories/makeAssitant'
 import { AssistantsInMemoryRepository } from '#/repositories/AssistantsInMemoryRepository'
 import { Assistant } from '../../../enterprise/entities/Assistant'
-import { DeleteUseCase } from './DeleteAssistant'
+import { DeleteAssistantUseCase } from './DeleteAssistant'
 import { NotFoundError } from '../errors/NotFoundError'
 
 let assistantRepository: AssistantsInMemoryRepository
-let sut: DeleteUseCase
+let sut: DeleteAssistantUseCase
 let assistantCreated: Assistant
 
 describe('Edit Assistant', () => {
   beforeEach(() => {
     assistantRepository = new AssistantsInMemoryRepository()
-    sut = new DeleteUseCase(assistantRepository)
+    sut = new DeleteAssistantUseCase(assistantRepository)
     assistantCreated = makeAssistant()
     assistantRepository.create(assistantCreated)
   })

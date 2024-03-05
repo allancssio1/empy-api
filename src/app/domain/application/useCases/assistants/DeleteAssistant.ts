@@ -5,9 +5,10 @@ import { AssistantRepository } from '../../repositories/assistantRepository'
 interface DeleteUseCaseProps {
   id: string
 }
+
 type DeleteUseCaseResponse = Either<NotFoundError, {}>
 
-export class DeleteUseCase {
+export class DeleteAssistantUseCase {
   constructor(private assistantRepository: AssistantRepository) {}
 
   async execute({ id }: DeleteUseCaseProps): Promise<DeleteUseCaseResponse> {
