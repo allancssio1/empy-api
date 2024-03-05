@@ -23,10 +23,11 @@ model Assistants {
 }
 
 model Clients {
-  id      String  @unique @default(uuid())
-  name    String
-  code    String
-  netWork String?
+  id          String  @unique @default(uuid())
+  name        String
+  code        String
+  netWork     String
+  assistantId String?
 
   @@map("clients")
 }
