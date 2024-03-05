@@ -1,41 +1,44 @@
 import { Either, left, right } from '@/app/core/either'
-import { Assistant } from '../../../enterprise/entities/Assistant'
-import { AssistantRepository } from '../../repositories/assistantRepository'
+import { Client } from '../../../enterprise/entities/Client'
+import { ClientRepository } from '../../repositories/clientRepository'
 import { NotFoundError } from '../errors/NotFoundError'
+import { UniqueEntityId } from '@/app/core/entities/UniqueEntityId'
 
-interface EditAssistantUseCaseProps {
+interface EditClientUseCaseProps {
   id: string
   name: string
-  email: string
-  phone: string
+  network: string
+  assistantId?: string
 }
 
-type EditAssistantUseCaseResponse = Either<
+type EditClientUseCaseResponse = Either<
   NotFoundError,
   {
-    assistant: Assistant
+    client: Client
   }
 >
 
-export class EditAssistantUseCase {
-  constructor(private assistantRepository: AssistantRepository) {}
+export class EditClientUseCase {
+  constructor(private clientRepository: ClientRepository) {}
 
   async execute({
     id,
     name,
-    email,
-    phone,
-  }: EditAssistantUseCaseProps): Promise<EditAssistantUseCaseResponse> {
-    const assistant = await this.assistantRepository.findById(id)
+    network,
+    assistantId,
+  }: EditClientUseCaseProps): Promise<EditClientUseCaseResponse> {
+    const client = await this.clientRepository.findById(id)
 
-    if (!assistant) return left(new NotFoundError())
+    if (!client) return left(new NotFoundError())
 
-    assistant.name = name
-    assistant.email = email
-    assistant.phone = phone
+    client.name = name
+    client.network = network
+    client.assistantId = assistantId
+      ? new UniqueEntityId(assistantId)
+      : undefined
 
-    await this.assistantRepository.update(assistant)
+    await this.clientRepository.update(client)
 
-    return right({ assistant })
+    return right({ client })
   }
 }

@@ -1,46 +1,44 @@
-import { makeAssistant } from '#/factories/makeAssitant'
-import { AssistantsInMemoryRepository } from '#/repositories/AssistantsInMemoryRepository'
-import { Assistant } from '../../../enterprise/entities/Assistant'
-import { EditAssistantUseCase } from './EditClient'
+import { makeClient } from '#/factories/makeClient'
+import { ClientsInMemoryRepository } from '#/repositories/ClientInMemoryRepository'
+import { Client } from '../../../enterprise/entities/Client'
+import { EditClientUseCase } from './EditClient'
 import { NotFoundError } from '../errors/NotFoundError'
 
-let assistantRepository: AssistantsInMemoryRepository
-let sut: EditAssistantUseCase
-let assistantCreated: Assistant
+let clientRepository: ClientsInMemoryRepository
+let sut: EditClientUseCase
+let clientCreated: Client
 
-describe('Edit Assistant', () => {
+describe('Edit Client', () => {
   beforeEach(() => {
-    assistantRepository = new AssistantsInMemoryRepository()
-    sut = new EditAssistantUseCase(assistantRepository)
-    assistantCreated = makeAssistant({
-      name: 'Assistant-1',
-      email: 'assistant@email.com',
-      phone: '9989999999',
+    clientRepository = new ClientsInMemoryRepository()
+    sut = new EditClientUseCase(clientRepository)
+    clientCreated = makeClient({
+      code: 'xx00-0',
     })
-    assistantRepository.create(assistantCreated)
+    clientRepository.create(clientCreated)
   })
 
   it('It must be possible to edit an assistant.', async () => {
     const result = await sut.execute({
-      id: assistantCreated.id.toString(),
-      name: 'Assistant-2',
-      email: 'assistant2@email.com',
-      phone: '(99) 9 9999-9999',
+      id: clientCreated.id.toString(),
+      name: 'Client-2',
+      network: 'Rede 1',
     })
 
     expect(result.isRight()).toBe(true)
     expect(result.isLeft()).toBe(false)
+    if (result.value?.client) {
+      expect(result.value?.client).toMatchObject(
+        expect.objectContaining({ name: 'Client-2', network: 'Rede 1' }),
+      )
+    }
   })
 
   it('It should not be possible to edit an assistant where id wrong.', async () => {
-    await assistantRepository.create(
-      makeAssistant({ email: 'assistant@email.com' }),
-    )
     const result = await sut.execute({
       id: 'id-wrong',
-      name: 'Assistant-2',
-      email: 'assistant2@email.com',
-      phone: '(99) 9 9999-9999',
+      name: 'Client-2',
+      network: 'Rede 1',
     })
 
     expect(result.isLeft()).toBe(true)

@@ -13,6 +13,10 @@ export class Client extends Entity<ClientProps> {
     return this.props.name
   }
 
+  set name(value: string) {
+    this.props.name = value
+  }
+
   get code() {
     return this.props.code
   }
@@ -21,8 +25,16 @@ export class Client extends Entity<ClientProps> {
     return this.props.assistantId
   }
 
+  set assistantId(value: UniqueEntityId | undefined) {
+    this.props.assistantId = value
+  }
+
   get network() {
     return this.props.network
+  }
+
+  set network(value: string) {
+    this.props.network = value
   }
 
   static create(props: ClientProps, id?: UniqueEntityId) {

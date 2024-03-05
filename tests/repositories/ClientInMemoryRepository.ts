@@ -23,6 +23,11 @@ export class ClientsInMemoryRepository implements ClientRepository {
     return clientsArray ?? null
   }
 
+  async findById(id: string): Promise<Client | null> {
+    const clientsArray = this.clients.find((item) => item.id.toString() === id)
+    return clientsArray ?? null
+  }
+
   async findManyClientsUnlinked(): Promise<Client[]> {
     const clientsArray = this.clients.filter((item) => !item.assistantId)
     return clientsArray
