@@ -3,6 +3,7 @@ import { ClientsInMemoryRepository } from '#/repositories/ClientInMemoryReposito
 import { Client } from '../../../enterprise/entities/Client'
 import { EditClientUseCase } from './EditClient'
 import { NotFoundError } from '../errors/NotFoundError'
+import { UniqueEntityId } from '@/app/core/entities/UniqueEntityId'
 
 let clientRepository: ClientsInMemoryRepository
 let sut: EditClientUseCase
@@ -18,7 +19,7 @@ describe('Edit Client', () => {
     clientRepository.create(clientCreated)
   })
 
-  it('It must be possible to edit an assistant.', async () => {
+  it('It must be possible to edit an client.', async () => {
     const result = await sut.execute({
       id: clientCreated.id.toString(),
       name: 'Client-2',
@@ -27,14 +28,10 @@ describe('Edit Client', () => {
 
     expect(result.isRight()).toBe(true)
     expect(result.isLeft()).toBe(false)
-    if (result.value?.client) {
-      expect(result.value?.client).toMatchObject(
-        expect.objectContaining({ name: 'Client-2', network: 'Rede 1' }),
-      )
-    }
+    expect(result.value).toBeInstanceOf(Client)
   })
 
-  it('It should not be possible to edit an assistant where id wrong.', async () => {
+  it('It should not be possible to edit an client where id wrong.', async () => {
     const result = await sut.execute({
       id: 'id-wrong',
       name: 'Client-2',
@@ -44,5 +41,22 @@ describe('Edit Client', () => {
     expect(result.isLeft()).toBe(true)
     expect(result.isRight()).toBe(false)
     expect(result.value).toBeInstanceOf(NotFoundError)
+  })
+
+  it('It must be possible to link an client to an assistant.', async () => {
+    expect(clientRepository.clients[0].assistantId).toEqual(undefined)
+
+    const result = await sut.execute({
+      id: clientCreated.id.toString(),
+      name: clientCreated.name,
+      network: clientCreated.network,
+      assistantId: 'assistant-1',
+    })
+
+    expect(result.isRight()).toBe(true)
+    expect(result.isLeft()).toBe(false)
+    expect(clientRepository.clients[0].assistantId).toBeInstanceOf(
+      UniqueEntityId,
+    )
   })
 })
