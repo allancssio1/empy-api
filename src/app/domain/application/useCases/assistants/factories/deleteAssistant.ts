@@ -2,7 +2,5 @@ import { AssistantsRepositoryPrisma } from '@/app/core/repositories/prisma/Assis
 import { DeleteAssistantUseCase } from '../DeleteAssistant'
 
 export const deleteAssistant = () => {
-  const assitanteRepository = new AssistantsRepositoryPrisma()
-  const deleteAssistant = new DeleteAssistantUseCase(assitanteRepository)
-  return deleteAssistant
+  return new DeleteAssistantUseCase(new AssistantsRepositoryPrisma())
 }
