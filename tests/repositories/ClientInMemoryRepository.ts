@@ -18,6 +18,11 @@ export class ClientsInMemoryRepository implements ClientRepository {
     return client
   }
 
+  async findByCode(code: string): Promise<Client | null> {
+    const clientsArray = this.clients.find((item) => item.code === code)
+    return clientsArray ?? null
+  }
+
   async findManyClientsUnlinked(): Promise<Client[]> {
     const clientsArray = this.clients.filter((item) => !item.assistantId)
     return clientsArray

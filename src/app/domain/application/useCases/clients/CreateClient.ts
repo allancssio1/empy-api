@@ -1,40 +1,39 @@
 import { Either, left, right } from '@/app/core/either'
-import { Assistant } from '../../../enterprise/entities/Assistant'
-import { AssistantRepository } from '../../repositories/assistantRepository'
-import { AssistanteAlreadyExistsError } from '../errors/AssistantAlreadyExistsError'
+import { Client } from '../../../enterprise/entities/Client'
+import { ClientRepository } from '../../repositories/clientRepository'
+import { ClientAlreadyExistsError } from '../errors/ClientAlreadyExistsError'
 
-interface CreateAssistantUseCaseProps {
+interface CreateClientUseCaseProps {
   name: string
-  email: string
-  phone: string
+  code: string
+  network: string
 }
 
-type CreateAssistantUseCaseResponse = Either<
-  AssistanteAlreadyExistsError,
-  { assistant: Assistant }
+type CreateClientUseCaseResponse = Either<
+  ClientAlreadyExistsError,
+  { client: Client }
 >
 
-export class CreateAssistantUseCase {
-  constructor(private assistantRepository: AssistantRepository) {}
+export class CreateClientUseCase {
+  constructor(private clientRepository: ClientRepository) {}
 
   async execute({
     name,
-    email,
-    phone,
-  }: CreateAssistantUseCaseProps): Promise<CreateAssistantUseCaseResponse> {
-    const assistantAlreadyExists =
-      await this.assistantRepository.findByEmail(email)
+    code,
+    network,
+  }: CreateClientUseCaseProps): Promise<CreateClientUseCaseResponse> {
+    const clientAlreadyExists = await this.clientRepository.findByCode(code)
 
-    if (assistantAlreadyExists) return left(new AssistanteAlreadyExistsError())
+    if (clientAlreadyExists) return left(new ClientAlreadyExistsError())
 
-    const assistant = Assistant.create({
+    const client = Client.create({
       name,
-      email,
-      phone: phone.replace(/\D/g, ''),
+      code,
+      network,
     })
 
-    await this.assistantRepository.create(assistant)
+    await this.clientRepository.create(client)
 
-    return right({ assistant })
+    return right({ client })
   }
 }

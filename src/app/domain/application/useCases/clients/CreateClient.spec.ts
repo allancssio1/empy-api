@@ -1,39 +1,37 @@
-import { makeAssistant } from '#/factories/makeAssitant'
-import { AssistantsInMemoryRepository } from '#/repositories/AssistantsInMemoryRepository'
-import { CreateAssistantUseCase } from './CreateClient'
-import { AssistanteAlreadyExistsError } from '../errors/AssistantAlreadyExistsError'
+import { makeClient } from '#/factories/makeClient'
+import { ClientsInMemoryRepository } from '#/repositories/ClientInMemoryRepository'
+import { CreateClientUseCase } from './CreateClient'
+import { ClientAlreadyExistsError } from '../errors/ClientAlreadyExistsError'
 
-let assistantRepository: AssistantsInMemoryRepository
-let sut: CreateAssistantUseCase
+let clientRepository: ClientsInMemoryRepository
+let sut: CreateClientUseCase
 
-describe('Create Assistant', () => {
+describe('Create Client', () => {
   beforeEach(() => {
-    assistantRepository = new AssistantsInMemoryRepository()
-    sut = new CreateAssistantUseCase(assistantRepository)
+    clientRepository = new ClientsInMemoryRepository()
+    sut = new CreateClientUseCase(clientRepository)
   })
 
-  it('It must be possible to register an assistant.', async () => {
+  it('It must be possible to register an client.', async () => {
     const result = await sut.execute({
-      name: 'Assistant-1',
-      email: 'assistant@email.com',
-      phone: '9989999999',
+      name: 'Client-1',
+      code: 'xx00-2',
+      network: 'Rede 2',
     })
 
     expect(result.isRight()).toBe(true)
     expect(result.isLeft()).toBe(false)
   })
 
-  it('It should not be possible to register an assistant with an existing email address.', async () => {
-    await assistantRepository.create(
-      makeAssistant({ email: 'assistant@email.com' }),
-    )
+  it('It should not be possible to register an client with an existing email address.', async () => {
+    await clientRepository.create(makeClient({ code: 'xx00-2' }))
     const result = await sut.execute({
-      name: 'Assistant-1',
-      email: 'assistant@email.com',
-      phone: '9989999999',
+      name: 'Client-1',
+      code: 'xx00-2',
+      network: 'Rede 2',
     })
     expect(result.isRight()).toBe(false)
     expect(result.isLeft()).toBe(true)
-    expect(result.value).toBeInstanceOf(AssistanteAlreadyExistsError)
+    expect(result.value).toBeInstanceOf(ClientAlreadyExistsError)
   })
 })
