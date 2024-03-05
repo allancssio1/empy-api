@@ -1,6 +1,7 @@
 import { AssistantRepository } from '@/app/domain/application/repositories/assistantRepository'
 import { Assistant } from '@/app/domain/enterprise/entities/Assistant'
 import { prisma } from 'prisma'
+import { UniqueEntityId } from '../../entities/UniqueEntityId'
 
 export class AssistantsRepositoryPrisma implements AssistantRepository {
   async create(assistant: Assistant): Promise<Assistant> {
@@ -16,23 +17,68 @@ export class AssistantsRepositoryPrisma implements AssistantRepository {
     return assistant
   }
 
-  update(assistant: Assistant): Promise<Assistant> {
-    throw new Error('Method not implemented.')
+  async update(assistant: Assistant): Promise<Assistant> {
+    await prisma.assistants.update({
+      where: { id: assistant.id.toString() },
+      data: {
+        name: assistant.name,
+        phone: assistant.phone,
+      },
+    })
+    return assistant
   }
 
-  findByEmail(email: string): Promise<Assistant | null> {
-    throw new Error('Method not implemented.')
+  async findByEmail(email: string): Promise<Assistant | null> {
+    const assistant = await prisma.assistants.findFirst({ where: { email } })
+    return assistant
+      ? Assistant.create(
+          {
+            name: assistant.name,
+            phone: assistant.phone,
+            email: assistant.email,
+          },
+          new UniqueEntityId(assistant.id),
+        )
+      : null
   }
 
-  findById(id: string): Promise<Assistant | null> {
-    throw new Error('Method not implemented.')
+  async findById(id: string): Promise<Assistant | null> {
+    const assistant = await prisma.assistants.findUnique({ where: { id } })
+
+    return assistant
+      ? Assistant.create(
+          {
+            name: assistant.name,
+            phone: assistant.phone,
+            email: assistant.email,
+          },
+          new UniqueEntityId(assistant.id),
+        )
+      : null
   }
 
-  findMany(): Promise<[] | Assistant[]> {
-    throw new Error('Method not implemented.')
+  async findMany(): Promise<[] | Assistant[]> {
+    const response = await prisma.assistants.findMany()
+
+    const clients =
+      response.length > 0
+        ? response.map((item) => {
+            const client = Assistant.create(
+              {
+                name: item.name,
+                email: item.email,
+                phone: item.phone,
+              },
+              new UniqueEntityId(item.id),
+            )
+            return client
+          })
+        : []
+
+    return clients
   }
 
-  delete(assistant: Assistant): Promise<void> {
-    throw new Error('Method not implemented.')
+  async delete(assistant: Assistant): Promise<void> {
+    await prisma.assistants.delete({ where: { id: assistant.id.toString() } })
   }
 }
