@@ -3,6 +3,6 @@ import { assistantsRoutes } from './assistant/AssistantRoutes'
 
 const router = Router()
 
-router.use('/assistent', assistantsRoutes)
+router.use('/assistants', assistantsRoutes)
 
 export { router }

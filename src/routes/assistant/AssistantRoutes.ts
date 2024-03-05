@@ -3,7 +3,7 @@ import { Router, Request, Response } from 'express'
 const assistantsRoutes = Router()
 
 assistantsRoutes.get('/', async (req: Request, res: Response) => {
-  return res.json('eu')
+  return res.json('eu de novo')
 })
 
 export { assistantsRoutes }
