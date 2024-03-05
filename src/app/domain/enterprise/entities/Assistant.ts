@@ -11,6 +11,7 @@ export class Assistant extends Entity<AssistantProps> {
   get name() {
     return this.props.name
   }
+
   set name(value: string) {
     this.props.name = value
   }
@@ -18,6 +19,7 @@ export class Assistant extends Entity<AssistantProps> {
   get email() {
     return this.props.email
   }
+
   set email(value: string) {
     this.props.email = value
   }
@@ -25,6 +27,7 @@ export class Assistant extends Entity<AssistantProps> {
   get phone() {
     return this.props.phone
   }
+
   set phone(value: string) {
     this.props.phone = value.replace(/\D/g, '')
   }
