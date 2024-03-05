@@ -1,7 +1,7 @@
 import { makeAssistant } from '#/factories/makeAssitant'
 import { AssistantsInMemoryRepository } from '#/repositories/AssistantsInMemoryRepository'
-import { Assistant } from '../../enterprise/entities/Assistant'
-import { FetchManyAssistantsUseCase } from './FetchManyAssistants'
+import { Assistant } from '../../../enterprise/entities/Assistant'
+import { FetchManyAssistantsUseCase } from './FetchManyClients'
 
 let assistantRepository: AssistantsInMemoryRepository
 let sut: FetchManyAssistantsUseCase

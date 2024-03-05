@@ -1,8 +1,8 @@
 import { makeAssistant } from '#/factories/makeAssitant'
 import { AssistantsInMemoryRepository } from '#/repositories/AssistantsInMemoryRepository'
-import { Assistant } from '../../enterprise/entities/Assistant'
+import { Assistant } from '../../../enterprise/entities/Assistant'
 import { DeleteUseCase } from './DeleteAssistant'
-import { NotFoundError } from './errors/NotFoundError'
+import { NotFoundError } from '../errors/NotFoundError'
 
 let assistantRepository: AssistantsInMemoryRepository
 let sut: DeleteUseCase

@@ -1,6 +1,6 @@
 import { Either, left, right } from '@/app/core/either'
-import { NotFoundError } from './errors/NotFoundError'
-import { AssistantRepository } from '../repositories/assistantRepository'
+import { NotFoundError } from '../errors/NotFoundError'
+import { AssistantRepository } from '../../repositories/assistantRepository'
 
 interface DeleteUseCaseProps {
   id: string

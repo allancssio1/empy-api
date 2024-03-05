@@ -8,7 +8,7 @@ export const makeAssistant = (
 ) => {
   const assistant = Assistant.create(
     {
-      name: faker.internet.userName(),
+      name: `${faker.person.firstName()} ${faker.person.lastName()}`,
       email: faker.internet.email(),
       phone: faker.string.numeric({ length: 9 }),
       ...override,

@@ -1,7 +1,7 @@
 import { Either, left, right } from '@/app/core/either'
-import { Assistant } from '../../enterprise/entities/Assistant'
-import { AssistantRepository } from '../repositories/assistantRepository'
-import { AssistanteAlreadyExistsError } from './errors/AssistantAlreadyExistsError'
+import { Assistant } from '../../../enterprise/entities/Assistant'
+import { AssistantRepository } from '../../repositories/assistantRepository'
+import { AssistanteAlreadyExistsError } from '../errors/AssistantAlreadyExistsError'
 
 interface CreateAssistantUseCaseProps {
   name: string

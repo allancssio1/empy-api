@@ -1,7 +1,7 @@
 import { makeAssistant } from '#/factories/makeAssitant'
 import { AssistantsInMemoryRepository } from '#/repositories/AssistantsInMemoryRepository'
 import { CreateAssistantUseCase } from './CreateAssistant'
-import { AssistanteAlreadyExistsError } from './errors/AssistantAlreadyExistsError'
+import { AssistanteAlreadyExistsError } from '../errors/AssistantAlreadyExistsError'
 
 let assistantRepository: AssistantsInMemoryRepository
 let sut: CreateAssistantUseCase
