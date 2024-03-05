@@ -1,23 +1,25 @@
 import { Either, left, right } from '@/app/core/either'
 import { NotFoundError } from '../errors/NotFoundError'
-import { AssistantRepository } from '../../repositories/assistantRepository'
+import { ClientRepository } from '../../repositories/clientRepository'
 
-interface DeleteUseCaseProps {
+interface DeleteClientUseCaseProps {
   id: string
 }
-type DeleteUseCaseResponse = Either<NotFoundError, {}>
+type DeleteClientUseCaseResponse = Either<NotFoundError, {}>
 
-export class DeleteUseCase {
-  constructor(private assistantRepository: AssistantRepository) {}
+export class DeleteClientUseCase {
+  constructor(private clientRepository: ClientRepository) {}
 
-  async execute({ id }: DeleteUseCaseProps): Promise<DeleteUseCaseResponse> {
-    const assistant = await this.assistantRepository.findById(id)
+  async execute({
+    id,
+  }: DeleteClientUseCaseProps): Promise<DeleteClientUseCaseResponse> {
+    const client = await this.clientRepository.findById(id)
 
-    if (!assistant) {
+    if (!client) {
       return left(new NotFoundError())
     }
 
-    await this.assistantRepository.delete(assistant)
+    await this.clientRepository.delete(client)
 
     return right({})
   }
