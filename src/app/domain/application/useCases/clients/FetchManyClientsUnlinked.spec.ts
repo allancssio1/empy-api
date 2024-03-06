@@ -1,15 +1,15 @@
 import { makeClient } from '#/factories/makeClient'
 import { ClientsInMemoryRepository } from '#/repositories/ClientInMemoryRepository'
 import { UniqueEntityId } from '@/app/core/entities/UniqueEntityId'
-import { FetchManyClientsUseCase } from './FetchManyClientsUnlinked'
+import { FetchManyClientsUnlinkedUseCase } from './FetchManyClientsUnlinked'
 
 let clientRepository: ClientsInMemoryRepository
-let sut: FetchManyClientsUseCase
+let sut: FetchManyClientsUnlinkedUseCase
 
 describe('Fetch Many Client', () => {
   beforeEach(() => {
     clientRepository = new ClientsInMemoryRepository()
-    sut = new FetchManyClientsUseCase(clientRepository)
+    sut = new FetchManyClientsUnlinkedUseCase(clientRepository)
     clientRepository.create(makeClient())
     clientRepository.create(makeClient())
     clientRepository.create(makeClient())
