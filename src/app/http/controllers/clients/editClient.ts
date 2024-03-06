@@ -8,7 +8,6 @@ export const editClientController = async (req: Request, res: Response) => {
   })
   const editClientBodySchema = z.object({
     name: z.string({ required_error: 'Name is required' }),
-    assistantId: z.string({ required_error: 'Assistant id is required' }),
     network: z.string({ required_error: 'Network is required' }),
   })
 
@@ -18,11 +17,11 @@ export const editClientController = async (req: Request, res: Response) => {
     return res.status(200).json(result.error.format())
   }
 
-  const { name, assistantId, network } = editClientBodySchema.parse(req.body)
+  const { name, network } = editClientBodySchema.parse(req.body)
 
   const { id } = editClientParamsSchema.parse(req.params)
 
-  const client = await editClient({ id, name, network, assistantId })
+  const client = await editClient({ id, name, network })
 
   if (client.isLeft())
     return res.status(200).json({ message: client.value.message })
