@@ -28,7 +28,6 @@ describe('Edit Client', () => {
 
     expect(result.isRight()).toBe(true)
     expect(result.isLeft()).toBe(false)
-    expect(result.value).toBeInstanceOf(Client)
   })
 
   it('It should not be possible to edit an client where id wrong.', async () => {

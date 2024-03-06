@@ -1,5 +1,6 @@
 import { makeClient } from '#/factories/makeClient'
 import { ClientsInMemoryRepository } from '#/repositories/ClientInMemoryRepository'
+import { UniqueEntityId } from '@/app/core/entities/UniqueEntityId'
 import { FetchManyClientsUseCase } from './FetchManyClientsUnlinked'
 
 let clientRepository: ClientsInMemoryRepository
@@ -12,6 +13,7 @@ describe('Fetch Many Client', () => {
     clientRepository.create(makeClient())
     clientRepository.create(makeClient())
     clientRepository.create(makeClient())
+    clientRepository.create(makeClient({ assistantId: new UniqueEntityId() }))
   })
 
   it('It must be possible to fetch many clients without assistant linked.', async () => {

@@ -1,11 +1,11 @@
 import { ClientsRepositoryPrisma } from '@/app/core/repositories/prisma/ClientsRepositoryPrisma'
 import {
-  FetchManyClientsUseCase,
-  FetchManyClientsUseCaseProps,
+  FetchManyClientsLinkedUseCase,
+  FetchManyClientsLinkedUseCaseProps,
 } from '../FetchManyClientsLinked'
 
-export const createClient = (data: FetchManyClientsUseCaseProps) => {
-  return new FetchManyClientsUseCase(new ClientsRepositoryPrisma()).execute(
-    data,
-  )
+export const listClientLinked = (data: FetchManyClientsLinkedUseCaseProps) => {
+  return new FetchManyClientsLinkedUseCase(
+    new ClientsRepositoryPrisma(),
+  ).execute(data)
 }

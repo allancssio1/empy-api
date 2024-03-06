@@ -2,23 +2,23 @@ import { Either, right } from '@/app/core/either'
 import { Client } from '../../../enterprise/entities/Client'
 import { ClientRepository } from '../../repositories/clientRepository'
 
-export interface FetchManyClientsUseCaseProps {
+export interface FetchManyClientsLinkedUseCaseProps {
   assistantId: string
 }
 
-type FetchManyClientsUseCaseResponse = Either<
+type FetchManyClientsLinkedUseCaseResponse = Either<
   null,
   {
     clients: Client[]
   }
 >
 
-export class FetchManyClientsUseCase {
+export class FetchManyClientsLinkedUseCase {
   constructor(private clientRepository: ClientRepository) {}
 
   async execute({
     assistantId,
-  }: FetchManyClientsUseCaseProps): Promise<FetchManyClientsUseCaseResponse> {
+  }: FetchManyClientsLinkedUseCaseProps): Promise<FetchManyClientsLinkedUseCaseResponse> {
     const clients =
       await this.clientRepository.findManyClientsLinked(assistantId)
 

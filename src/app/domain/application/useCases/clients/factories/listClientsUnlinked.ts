@@ -1,6 +1,8 @@
 import { ClientsRepositoryPrisma } from '@/app/core/repositories/prisma/ClientsRepositoryPrisma'
-import { FetchManyClientsUseCase } from '../FetchManyClientsUnlinked'
+import { FetchManyClientsUnlinkedUseCase } from '../FetchManyClientsUnlinked'
 
-export const createClient = () => {
-  return new FetchManyClientsUseCase(new ClientsRepositoryPrisma()).execute()
+export const listClientUnlinked = () => {
+  return new FetchManyClientsUnlinkedUseCase(
+    new ClientsRepositoryPrisma(),
+  ).execute()
 }

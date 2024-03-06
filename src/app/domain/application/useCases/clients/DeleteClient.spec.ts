@@ -1,31 +1,31 @@
-import { makeAssistant } from '#/factories/makeAssitant'
-import { AssistantsInMemoryRepository } from '#/repositories/AssistantsInMemoryRepository'
-import { Assistant } from '../../../enterprise/entities/Assistant'
-import { DeleteUseCase } from './DeleteClient'
+import { makeClient } from '#/factories/makeClient'
+import { ClientsInMemoryRepository } from '#/repositories/ClientInMemoryRepository'
+import { Client } from '../../../enterprise/entities/Client'
+import { DeleteClientUseCase } from './DeleteClient'
 import { NotFoundError } from '../errors/NotFoundError'
 
-let assistantRepository: AssistantsInMemoryRepository
-let sut: DeleteUseCase
-let assistantCreated: Assistant
+let clientRepository: ClientsInMemoryRepository
+let sut: DeleteClientUseCase
+let clientCreated: Client
 
-describe('Edit Assistant', () => {
+describe('Edit Client', () => {
   beforeEach(() => {
-    assistantRepository = new AssistantsInMemoryRepository()
-    sut = new DeleteUseCase(assistantRepository)
-    assistantCreated = makeAssistant()
-    assistantRepository.create(assistantCreated)
+    clientRepository = new ClientsInMemoryRepository()
+    sut = new DeleteClientUseCase(clientRepository)
+    clientCreated = makeClient()
+    clientRepository.create(clientCreated)
   })
 
   it('It must be possible to delet an assistant.', async () => {
-    expect(assistantRepository.assistants).toHaveLength(1)
+    expect(clientRepository.clients).toHaveLength(1)
 
     const result = await sut.execute({
-      id: assistantCreated.id.toString(),
+      id: clientCreated.id.toString(),
     })
 
     expect(result.isRight()).toBe(true)
     expect(result.isLeft()).toBe(false)
-    expect(assistantRepository.assistants).toHaveLength(0)
+    expect(clientRepository.clients).toHaveLength(0)
   })
 
   it('It should not be possible to edit an assistant where id wrong.', async () => {
