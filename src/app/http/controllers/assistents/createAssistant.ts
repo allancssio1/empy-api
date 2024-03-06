@@ -16,8 +16,20 @@ export const createAssistantController = async (
       .min(11, { message: '9 digits are required on a telephone' }),
   })
 
+  const result = createAssistantSchema.safeParse(req.body)
+
+  if (!result.success) {
+    return res.status(200).json(result.error.format())
+  }
+
   const { name, email, phone } = createAssistantSchema.parse(req.body)
 
-  const assistants = await createAssistant({ name, email, phone })
-  return res.status(200).json(assistants)
+  const assistant = await createAssistant({ name, email, phone })
+
+  if (assistant.isLeft())
+    return res.status(200).json({ message: assistant.value.message })
+
+  return res
+    .status(200)
+    .json({ message: 'Create success', data: assistant.value })
 }
