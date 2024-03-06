@@ -12,7 +12,10 @@ export const deleteAssistantController = async (
 
   const { id } = deleteAssistantParamsSchema.parse(req.params)
 
-  await deleteAssistant({ id })
+  const result = await deleteAssistant({ id })
 
-  return res.status(200).json()
+  if (result.isLeft())
+    return res.status(200).json({ message: result.value.message })
+
+  return res.status(200).json({ message: 'Delete success', data: result.value })
 }
