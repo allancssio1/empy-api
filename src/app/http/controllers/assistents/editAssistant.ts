@@ -16,9 +16,22 @@ export const editAssistantController = async (req: Request, res: Response) => {
       .min(11, { message: '9 digits are required on a telephone' }),
   })
 
+  const result = editAssistantBodySchema.safeParse(req.body)
+
+  if (!result.success) {
+    return res.status(200).json(result.error.format())
+  }
+
   const { name, email, phone } = editAssistantBodySchema.parse(req.body)
+
   const { id } = editAssistantParamsSchema.parse(req.params)
 
-  const assistants = await editAssistant({ id, name, email, phone })
-  return res.status(200).json(assistants)
+  const assistant = await editAssistant({ id, name, email, phone })
+
+  if (assistant.isLeft())
+    return res.status(200).json({ message: assistant.value.message })
+
+  return res
+    .status(200)
+    .json({ message: 'Edit success', data: assistant.value })
 }

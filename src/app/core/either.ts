@@ -1,4 +1,4 @@
-/**ERROR */
+/** ERROR */
 export class Left<L, R> {
   readonly value: L
 
@@ -9,12 +9,13 @@ export class Left<L, R> {
   isRight(): this is Right<L, R> {
     return false
   }
+
   isLeft(): this is Left<L, R> {
     return true
   }
 }
 
-/**SUCCESS */
+/** SUCCESS */
 export class Right<L, R> {
   readonly value: R
 
@@ -25,6 +26,7 @@ export class Right<L, R> {
   isRight(): this is Right<L, R> {
     return true
   }
+
   isLeft(): this is Left<L, R> {
     return false
   }
