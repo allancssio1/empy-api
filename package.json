@@ -6,9 +6,6 @@
   "scripts": {
     "test:watch": "vitest",
     "test": "vitest run",
-    "pretest:e2e": "run-s test:create-environment test:install-environment",
-    "test:create-environment": "npm link ./prisma/vitest-environment-prisma",
-    "test:install-environment": "npm link vitest-environment-prisma",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
     "dev": "tsx watch src/server.ts",
