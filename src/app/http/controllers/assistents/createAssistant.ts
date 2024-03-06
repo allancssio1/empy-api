@@ -27,7 +27,7 @@ export const createAssistantController = async (
   const assistant = await createAssistant({ name, email, phone })
 
   if (assistant.isLeft())
-    return res.status(200).json({ message: assistant.value.message })
+    return res.status(400).json({ message: assistant.value.message })
 
   return res
     .status(200)

@@ -19,7 +19,7 @@ export const editAssistantController = async (req: Request, res: Response) => {
   const result = editAssistantBodySchema.safeParse(req.body)
 
   if (!result.success) {
-    return res.status(200).json(result.error.format())
+    return res.status(400).json(result.error.format())
   }
 
   const { name, email, phone } = editAssistantBodySchema.parse(req.body)
@@ -29,7 +29,7 @@ export const editAssistantController = async (req: Request, res: Response) => {
   const assistant = await editAssistant({ id, name, email, phone })
 
   if (assistant.isLeft())
-    return res.status(200).json({ message: assistant.value.message })
+    return res.status(404).json({ message: assistant.value.message })
 
   return res
     .status(200)

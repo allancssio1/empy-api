@@ -15,7 +15,7 @@ export const deleteAssistantController = async (
   const result = await deleteAssistant({ id })
 
   if (result.isLeft())
-    return res.status(200).json({ message: result.value.message })
+    return res.status(404).json({ message: result.value.message })
 
   return res.status(200).json({ message: 'Delete success', data: result.value })
 }

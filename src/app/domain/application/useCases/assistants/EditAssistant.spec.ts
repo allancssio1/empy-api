@@ -1,4 +1,4 @@
-import { makeAssistant } from '#/factories/makeAssitant'
+import { makeAssistant } from '#/factories/makeAssistant'
 import { AssistantsInMemoryRepository } from '#/repositories/AssistantsInMemoryRepository'
 import { Assistant } from '../../../enterprise/entities/Assistant'
 import { EditAssistantUseCase } from './EditAssistant'

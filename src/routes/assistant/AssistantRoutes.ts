@@ -8,7 +8,7 @@ const assistantsRoutes = Router()
 
 assistantsRoutes.get('/list', listAssistantsController)
 assistantsRoutes.post('/create', createAssistantController)
-assistantsRoutes.put('/edit/:id', editAssistantController)
-assistantsRoutes.delete('/edit/:id', deleteAssistantController)
+assistantsRoutes.put('/:id/edit', editAssistantController)
+assistantsRoutes.delete('/:id/delete', deleteAssistantController)
 
 export { assistantsRoutes }

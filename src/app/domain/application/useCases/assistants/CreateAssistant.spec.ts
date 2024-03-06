@@ -1,4 +1,4 @@
-import { makeAssistant } from '#/factories/makeAssitant'
+import { makeAssistant } from '#/factories/makeAssistant'
 import { AssistantsInMemoryRepository } from '#/repositories/AssistantsInMemoryRepository'
 import { CreateAssistantUseCase } from './CreateAssistant'
 import { AssistanteAlreadyExistsError } from '../errors/AssistantAlreadyExistsError'

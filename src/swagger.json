@@ -1,0 +1,621 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Empy-API Documantation",
+    "description": "This is an API Empy test",
+    "version": "1.0.0",
+    "contact": {
+      "email": "allan.cassio1@gmail.com"
+    }
+  },
+  "servers": [{
+    "url": "http://localhost:3333",
+    "description": "Api Dev"
+  }],
+  "paths": {
+    "/assistants/create": {
+      "post": {
+        "tags": ["Assistants"],
+        "summary": "Create an assistant",
+        "description": "Create an new assistant",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Assistant test",
+                  "email": "asssitant@test.com",
+                  "phone": "(11) 1 1111-1111"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Assistant created success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "message": "Create success",
+                    "data": {
+                      "assistant": {
+                        "_id": {
+                          "value": "c2a30aa0-f937-4043-8f26-a7bb24b185dd"
+                        },
+                        "props": {
+                          "name": "Assistant test",
+                          "email": "asssitant@test.com",
+                          "phone": "11111111111"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            } 
+          },
+          "400": {
+            "description": "Assistant already exists, to use outher email."
+          }
+        }
+      }
+    },
+    "/assistants/{assistantId}/edit": {
+      "put": {
+        "tags": ["Assistants"],
+        "summary": "Edit an assistant",
+        "description": "edit an existing assistant ",
+        "parameters": [
+          {
+            "name": "assistantId",
+            "in": "query",
+            "description": "Assistent unique id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Assistant test edited",
+                  "email": "asssitant@test.com",
+                  "phone": "(11) 1 1111-1111"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Assistant created success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "message": "Create success",
+                    "data": {
+                      "assistant": {
+                        "_id": {
+                          "value": "c2a30aa0-f937-4043-8f26-a7bb24b185dd"
+                        },
+                        "props": {
+                          "name": "Assistant test edited",
+                          "email": "asssitant@test.com",
+                          "phone": "11111111111"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            } 
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Assistant not found."
+          }
+        }
+      }
+    },
+    "/assistants/{assistantId}/delete": {
+      "delete": {
+        "tags": ["Assistants"],
+        "summary": "Delete an assistant",
+        "description": "Delete an existing assistant",
+        "parameters": [
+          {
+            "name": "assistantId",
+            "in": "query",
+            "description": "Assistent unique id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {},
+                "example": {}
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Assistant deleted success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "message": "Delete success",
+                    "data": {}
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Assistant not found."
+          }
+        }
+      }
+    },
+    "/assistants/list": {
+      "get": {
+        "tags": ["Assistants"],
+        "summary": "List assistants ",
+        "description": "List all assistants on Database",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {},
+                "example": {}
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "List assistants success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "value": {
+                      "assistants": [
+                        {
+                          "_id": {
+                            "value": "c2a30aa0-f937-4043-8f26-a7bb24b185dd"
+                          },
+                          "props": {
+                            "name": "Assistant test",
+                            "email": "asssitant@test.com",
+                            "phone": "11111111111"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clients/create": {
+      "post": {
+        "tags": ["Clients"],
+        "summary": "Create client ",
+        "description": "Create an new client",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "code": {
+                    "type": "string"
+                  },
+                  "network": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "client name",
+                  "code": "xx00-3",
+                  "network": "rede 1"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Client created success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "data": {
+                      "client": {
+                        "_id": {
+                          "value": "e69ef6bc-96b7-4999-819c-ab81af9533d7"
+                        },
+                        "props": {
+                          "code": "code",
+                          "name": "client name",
+                          "network": "rede 1",
+                          "assistantId": {
+                            "value": "a44ef6bc-96b8-4999-819c-ab81af9533dws"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            } 
+          },
+          "400": {
+            "description": "Request body required."
+          },
+          "401": {
+            "description": "Client already exists."
+          }
+        }
+      }
+    },
+    "/clients/{clientId}/edit": {
+      "put": {
+        "tags": ["Clients"],
+        "summary": "Edit client ",
+        "description": "Edit a client",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "query",
+            "description": "Client unique id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "network": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "client name edited",
+                  "network": "rede 1 edited"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Client edited success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "data": {
+                      "client": {
+                        "_id": {
+                          "value": "e69ef6bc-96b7-4999-819c-ab81af9533d7"
+                        },
+                        "props": {
+                          "code": "code",
+                          "name": "client name edited",
+                          "network": "rede 1 edited",
+                          "assistantId": "undefined"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            } 
+          },
+          "404": {
+            "description": "Client not found."
+          },
+          "400": {
+            "description": "Request body required."
+          }
+        }
+      }
+    },
+    "/clients/{clientId}/{assistantId}": {
+      "patch": {
+        "tags": ["Clients"],
+        "summary": "To Link or Unlink a client ",
+        "description": "To linker or unlik a client an assistant",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "query",
+            "description": "Client unique id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "assistanteId",
+            "in": "query",
+            "description": "Assistant unique id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {},
+                "example": {}
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Client updated success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "data": {
+                      "client": {
+                        "_id": {
+                          "value": "e69ef6bc-96b7-4999-819c-ab81af9533d7"
+                        },
+                        "props": {
+                          "code": "code",
+                          "name": "client name edited",
+                          "network": "rede 1 edited",
+                          "assistantId": {
+                            "value": "a44ef6bc-96b8-4999-819c-ab81af9533dws"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            } 
+          },
+          "404": {
+            "description": "Client not found."
+          },
+          "400": {
+            "description": "Request body required."
+          }
+        }
+      }
+    },
+    "/clients/{clientId}/delete": {
+      "delete": {
+        "tags": ["Clients"],
+        "summary": "Delete a client ",
+        "description": "Delete a client",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "query",
+            "description": "Client unique id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                },
+                "example": {
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Client deleted success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "message": "Delete success",
+                    "data": {}
+                  }
+                }
+              }
+            } 
+          },
+          "404": {
+            "description": "Client not found."
+          }
+        }
+      }
+    },
+    "/clients/list-unlinked": {
+      "get": {
+        "tags": ["Clients"],
+        "summary": "List clients unlinked ",
+        "description": "List all clients on Database without assistant",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {},
+                "example": {}
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "List clients success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "value": {
+                      "assistants": [
+                        {
+                          "_id": {
+                            "value": "c2a30aa0-f937-4043-8f26-a7bb24b185dd"
+                          },
+                          "props": {
+                            "name": "client test",
+                            "email": "client@test.com",
+                            "phone": "11111111111"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clients/list/{assistantId}": {
+      "get": {
+        "tags": ["Clients"],
+        "summary": "List clients unlinked ",
+        "description": "List all clients on Database without assistant",
+        "parameters": [
+          {
+            "name": "assistantId",
+            "in": "query",
+            "description": "Assistant unique id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {},
+                "example": {}
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "List clients success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "value": {
+                      "assistants": [
+                        {
+                          "_id": {
+                            "value": "c2a30aa0-f937-4043-8f26-a7bb24b185dd"
+                          },
+                          "props": {
+                            "name": "Assistant test",
+                            "email": "asssitant@test.com",
+                            "phone": "11111111111"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

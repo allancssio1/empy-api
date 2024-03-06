@@ -10,7 +10,7 @@ const clientsRoutes = Router()
 clientsRoutes.get('/list-unlinked', listClientUnlinkedController)
 clientsRoutes.get('/list/:assistantId', listClientLinkedController)
 clientsRoutes.post('/create', createClientController)
-clientsRoutes.put('/:id', editClientController)
-clientsRoutes.delete('/:id', deleteClientController)
+clientsRoutes.put('/:id/edit', editClientController)
+clientsRoutes.delete('/:id/delete', deleteClientController)
 
 export { clientsRoutes }
