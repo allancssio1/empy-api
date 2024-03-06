@@ -2,13 +2,11 @@ import { Either, left, right } from '@/app/core/either'
 import { Client } from '../../../enterprise/entities/Client'
 import { ClientRepository } from '../../repositories/clientRepository'
 import { NotFoundError } from '../errors/NotFoundError'
-import { UniqueEntityId } from '@/app/core/entities/UniqueEntityId'
 
 export interface EditClientUseCaseProps {
   id: string
   name: string
   network: string
-  assistantId?: string
 }
 
 type EditClientUseCaseResponse = Either<
@@ -25,7 +23,6 @@ export class EditClientUseCase {
     id,
     name,
     network,
-    assistantId,
   }: EditClientUseCaseProps): Promise<EditClientUseCaseResponse> {
     const client = await this.clientRepository.findById(id)
 
@@ -33,9 +30,6 @@ export class EditClientUseCase {
 
     client.name = name
     client.network = network
-    client.assistantId = assistantId
-      ? new UniqueEntityId(assistantId)
-      : undefined
 
     await this.clientRepository.update(client)
 

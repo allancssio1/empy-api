@@ -3,7 +3,6 @@ import { ClientsInMemoryRepository } from '#/repositories/ClientInMemoryReposito
 import { Client } from '../../../enterprise/entities/Client'
 import { EditClientUseCase } from './EditClient'
 import { NotFoundError } from '../errors/NotFoundError'
-import { UniqueEntityId } from '@/app/core/entities/UniqueEntityId'
 
 let clientRepository: ClientsInMemoryRepository
 let sut: EditClientUseCase
@@ -49,13 +48,9 @@ describe('Edit Client', () => {
       id: clientCreated.id.toString(),
       name: clientCreated.name,
       network: clientCreated.network,
-      assistantId: 'assistant-1',
     })
 
     expect(result.isRight()).toBe(true)
     expect(result.isLeft()).toBe(false)
-    expect(clientRepository.clients[0].assistantId).toBeInstanceOf(
-      UniqueEntityId,
-    )
   })
 })
