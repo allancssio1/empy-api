@@ -3,7 +3,7 @@ import { Assistant } from '../../../enterprise/entities/Assistant'
 import { AssistantRepository } from '../../repositories/assistantRepository'
 import { NotFoundError } from '../errors/NotFoundError'
 
-interface EditAssistantUseCaseProps {
+export interface EditAssistantUseCaseProps {
   id: string
   name: string
   email: string

@@ -3,7 +3,7 @@ import { Client } from '../../../enterprise/entities/Client'
 import { ClientRepository } from '../../repositories/clientRepository'
 import { ClientAlreadyExistsError } from '../errors/ClientAlreadyExistsError'
 
-interface CreateClientUseCaseProps {
+export interface CreateClientUseCaseProps {
   name: string
   code: string
   network: string

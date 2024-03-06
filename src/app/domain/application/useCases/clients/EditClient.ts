@@ -4,7 +4,7 @@ import { ClientRepository } from '../../repositories/clientRepository'
 import { NotFoundError } from '../errors/NotFoundError'
 import { UniqueEntityId } from '@/app/core/entities/UniqueEntityId'
 
-interface EditClientUseCaseProps {
+export interface EditClientUseCaseProps {
   id: string
   name: string
   network: string

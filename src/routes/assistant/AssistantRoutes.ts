@@ -1,9 +1,8 @@
-import { Router, Request, Response } from 'express'
+import { listAssistantsController } from '@/app/http/controllers/assistents/listAssistants'
+import { Router } from 'express'
 
 const assistantsRoutes = Router()
 
-assistantsRoutes.get('/', async (req: Request, res: Response) => {
-  return res.json('eu de novo')
-})
+assistantsRoutes.get('/list', listAssistantsController)
 
 export { assistantsRoutes }

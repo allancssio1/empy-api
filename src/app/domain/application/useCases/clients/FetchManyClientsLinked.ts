@@ -2,7 +2,7 @@ import { Either, right } from '@/app/core/either'
 import { Client } from '../../../enterprise/entities/Client'
 import { ClientRepository } from '../../repositories/clientRepository'
 
-interface FetchManyClientsUseCaseProps {
+export interface FetchManyClientsUseCaseProps {
   assistantId: string
 }
 

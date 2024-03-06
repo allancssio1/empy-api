@@ -1,6 +1,6 @@
 import { ClientsRepositoryPrisma } from '@/app/core/repositories/prisma/ClientsRepositoryPrisma'
-import { CreateClientUseCase } from '../CreateClient'
+import { CreateClientUseCase, CreateClientUseCaseProps } from '../CreateClient'
 
-export const createClient = () => {
-  return new CreateClientUseCase(new ClientsRepositoryPrisma())
+export const createClient = (data: CreateClientUseCaseProps) => {
+  return new CreateClientUseCase(new ClientsRepositoryPrisma()).execute(data)
 }

@@ -1,6 +1,11 @@
 import { AssistantsRepositoryPrisma } from '@/app/core/repositories/prisma/AssistantsRepositoryPrisma'
-import { EditAssistantUseCase } from '@/app/domain/application/useCases/assistants/EditAssistant'
+import {
+  EditAssistantUseCase,
+  EditAssistantUseCaseProps,
+} from '@/app/domain/application/useCases/assistants/EditAssistant'
 
-export const editAssistant = () => {
-  return new EditAssistantUseCase(new AssistantsRepositoryPrisma())
+export const editAssistant = (data: EditAssistantUseCaseProps) => {
+  return new EditAssistantUseCase(new AssistantsRepositoryPrisma()).execute(
+    data,
+  )
 }

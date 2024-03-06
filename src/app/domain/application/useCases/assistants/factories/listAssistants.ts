@@ -2,5 +2,7 @@ import { AssistantsRepositoryPrisma } from '@/app/core/repositories/prisma/Assis
 import { FetchManyAssistantsUseCase } from '../FetchManyAssistants'
 
 export const listAssistants = () => {
-  return new FetchManyAssistantsUseCase(new AssistantsRepositoryPrisma())
+  return new FetchManyAssistantsUseCase(
+    new AssistantsRepositoryPrisma(),
+  ).execute()
 }

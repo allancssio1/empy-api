@@ -2,5 +2,5 @@ import { ClientsRepositoryPrisma } from '@/app/core/repositories/prisma/ClientsR
 import { FetchManyClientsUseCase } from '../FetchManyClientsUnlinked'
 
 export const createClient = () => {
-  return new FetchManyClientsUseCase(new ClientsRepositoryPrisma())
+  return new FetchManyClientsUseCase(new ClientsRepositoryPrisma()).execute()
 }

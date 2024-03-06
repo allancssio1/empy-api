@@ -1,6 +1,8 @@
 import { AssistantsRepositoryPrisma } from '@/app/core/repositories/prisma/AssistantsRepositoryPrisma'
-import { DeleteAssistantUseCase } from '../DeleteAssistant'
+import { DeleteAssistantUseCase, DeleteUseCaseProps } from '../DeleteAssistant'
 
-export const deleteAssistant = () => {
-  return new DeleteAssistantUseCase(new AssistantsRepositoryPrisma())
+export const deleteAssistant = ({ id }: DeleteUseCaseProps) => {
+  return new DeleteAssistantUseCase(new AssistantsRepositoryPrisma()).execute({
+    id,
+  })
 }

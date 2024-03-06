@@ -2,7 +2,7 @@ import { Either, left, right } from '@/app/core/either'
 import { NotFoundError } from '../errors/NotFoundError'
 import { ClientRepository } from '../../repositories/clientRepository'
 
-interface DeleteClientUseCaseProps {
+export interface DeleteClientUseCaseProps {
   id: string
 }
 type DeleteClientUseCaseResponse = Either<NotFoundError, {}>
