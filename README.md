@@ -28,10 +28,14 @@ associação entre eles.
 ### Entre na pasta
 - cd empy-api
 
- ### Instale as dependencias
+### Instale as dependencias
  - npm install
 
- ### Rode a aplicação
+### Gerar bando de dados
+- docker compose up -d
+- npx prisma migrate dev
+
+### Rode a aplicação
  - npm run dev
 
  ### Acesse em seu navegador
